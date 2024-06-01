@@ -27,11 +27,17 @@ const CarDetailPage = async ({ params }: { params: { id: string } }) => {
     <div>
       <div className="flex flex-col gap-5">
         <LabeledValue label={'Brand'}>{car?.brand.name}</LabeledValue>
-        <LabeledValue label={'Brand'}>{car?.brand.name}</LabeledValue>
-        <LabeledValue label={'Brand'}>{car?.brand.name}</LabeledValue>
-        <LabeledValue label={'Brand'}>{car?.brand.name}</LabeledValue>
-        <LabeledValue label={'Brand'}>{car?.brand.name}</LabeledValue>
-        <LabeledValue label={'Brand'}>{car?.brand.name}</LabeledValue>
+        <LabeledValue label={'Model'}>{car?.model.name}</LabeledValue>
+        <LabeledValue label={'Price'}>{`${car.price} USD`}</LabeledValue>
+        <LabeledValue label={'Color'}>{car?.color}</LabeledValue>
+        <LabeledValue label={'Location'}>{car?.location}</LabeledValue>
+        <LabeledValue label={'Year of manufacture'}>{car?.year}</LabeledValue>
+        <LabeledValue label={'Created'}>
+          {car.createdAt.toLocaleString()}
+        </LabeledValue>
+        <LabeledValue label={'Last update'}>
+          {car.updatedAt.toLocaleString()}
+        </LabeledValue>
       </div>
     </div>
   )

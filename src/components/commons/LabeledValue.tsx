@@ -8,7 +8,7 @@ const LabeledValue = ({
   return (
     <div className="flex justify-center">
       <div className="w-64 font-semibold">{label}:</div>{' '}
-      <div className="w-64">{children}</div>
+      <div className="w-64">{children ?? '-'}</div>
     </div>
   )
 }
