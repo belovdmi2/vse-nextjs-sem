@@ -7,7 +7,7 @@ type Props = {
 
 const CarList = ({ cars }: Props) => {
   return (
-    <div>
+    <div className="pt-5">
       {cars.map((car) => (
         <CarItem key={car.id} car={car} />
       ))}
