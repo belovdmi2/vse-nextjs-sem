@@ -24,11 +24,11 @@ const CarDetailPage = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <div>
+    <div className="pt-8">
       <div className="flex flex-col gap-5">
         <LabeledValue label={'Brand'}>{car?.brand.name}</LabeledValue>
         <LabeledValue label={'Model'}>{car?.model.name}</LabeledValue>
-        <LabeledValue label={'Price'}>{`${car.price} USD`}</LabeledValue>
+        <LabeledValue label={'Price'}>{`${car.price ?? '-'} USD`}</LabeledValue>
         <LabeledValue label={'Color'}>{car?.color}</LabeledValue>
         <LabeledValue label={'Location'}>{car?.location}</LabeledValue>
         <LabeledValue label={'Year of manufacture'}>{car?.year}</LabeledValue>

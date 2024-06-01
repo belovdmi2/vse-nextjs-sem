@@ -16,8 +16,8 @@ const NewCarPage = async () => {
   const models = await fetchModels()
 
   return (
-    <div>
-      New Car
+    <div className="pt-8">
+      <h1 className="font-bold text-xl pb-4 text-center">Add car listing</h1>
       <NewCarForm brands={brands} models={models} />
     </div>
   )

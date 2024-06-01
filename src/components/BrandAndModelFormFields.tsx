@@ -1,43 +1,69 @@
 'use client'
 import { Brand, CarModel } from '@prisma/client'
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo } from 'react'
+import { UseFormRegister } from 'react-hook-form'
+import SelectInput from './commons/inputs/SelectInput'
 
 const BrandAndModelFormFields = ({
   models,
   brands,
+  register,
+  choosenBrand,
+  resetModel,
+  fullWidth,
+  required,
 }: {
   models: CarModel[]
   brands: Brand[]
+  register: UseFormRegister<any>
+  choosenBrand: string
+  resetModel: () => void
+  fullWidth?: boolean
+  required?: boolean
 }) => {
-  const [brandId, setBrandId] = useState('')
-
   const filteredModels = useMemo(() => {
-    return models.filter((model) => model.brandId === brandId)
-  }, [brandId, models])
+    if (brands && models) {
+      if (choosenBrand) {
+        resetModel()
+      }
+      return models.filter((model) =>
+        !choosenBrand ? true : model.brandId === choosenBrand
+      )
+    }
+
+    return []
+  }, [models, choosenBrand, brands, resetModel])
+
   return (
     <Fragment>
-      <select
+      <SelectInput
+        label="Brand"
         name="brandId"
-        required={true}
-        id=""
-        value={brandId}
-        onChange={(e) => {
-          setBrandId(e.target.value)
-        }}
-      >
-        {brands.map((brand) => (
-          <option key={brand.id} value={brand.id}>
-            {brand.name}
-          </option>
-        ))}
-      </select>
-      <select name="modelId" required={true}>
-        {filteredModels.map((model) => (
-          <option key={model.id} value={model.id}>
-            {model.name}
-          </option>
-        ))}
-      </select>
+        register={register}
+        options={[
+          { value: '', label: '' },
+          ...brands.map((brand) => ({
+            label: brand.name,
+            value: brand.id,
+          })),
+        ]}
+        fullWidth={fullWidth}
+        required={required}
+      />
+      <SelectInput
+        label="Model"
+        name="modelId"
+        register={register}
+        options={[
+          { value: '', label: '' },
+          ...filteredModels.map((model) => ({
+            label: model.name,
+            value: model.id,
+          })),
+        ]}
+        fullWidth={fullWidth}
+        required={required}
+      />
     </Fragment>
   )
 }

@@ -33,9 +33,9 @@ const HomePage = () => {
       try {
         return (
           await fetch(
-            `/api/cars?location=${location ?? ''}&model=${model ?? ''}&brand=${
-              brand ?? ''
-            }`
+            `/api/cars?location=${location ?? ''}&modelId=${
+              model ?? ''
+            }&brandId=${brand ?? ''}`
           )
         ).json()
       } finally {
@@ -43,12 +43,17 @@ const HomePage = () => {
       }
     },
     placeholderData: keepPreviousData,
+    refetchOnMount: 'always',
   })
 
-  const setFilter = async ({ location, model, brand }: SearchCarsFormData) => {
+  const setFilter = async ({
+    location,
+    modelId,
+    brandId,
+  }: SearchCarsFormData) => {
     setLocation(location)
-    setModel(model)
-    setBrand(brand)
+    setModel(modelId)
+    setBrand(brandId)
   }
 
   if (!cars || !models || !brands) {
@@ -56,13 +61,20 @@ const HomePage = () => {
   }
 
   return (
-    <div>
+    <div className="pt-8">
       <CarSearchForm
         models={models?.data}
         brands={brands?.data}
         processDataAfterSubmit={setFilter}
         disableSubmit={loading}
       />
+      <div className="flex justify-between p-4">
+        <div className="w-44 text-left">Model</div>
+        <div className="w-24">Year</div>
+
+        <div className="w-40 inline-block">Price</div>
+      </div>
+      <hr />
       {loading ? <Loading /> : <CarList cars={cars?.data} />}
     </div>
   )

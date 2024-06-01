@@ -11,7 +11,7 @@ const CarList = ({ cars }: Props) => {
   }
 
   return (
-    <div className="pt-5">
+    <div>
       {cars.map((car) => (
         <CarItem key={car.id} car={car} />
       ))}

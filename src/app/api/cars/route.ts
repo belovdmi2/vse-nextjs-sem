@@ -6,22 +6,20 @@ export const GET = async (request: NextRequest) => {
   const url = new URL(request.nextUrl.href)
   const params = url.searchParams
 
-  let model = params.get('model') ?? undefined
-  let brand = params.get('brand') ?? undefined
+  let modelId = params.get('modelId') ?? undefined
+  let brandId = params.get('brandId') ?? undefined
   let location = params.get('location') ?? undefined
 
-  if (model === '') {
-    model = undefined
+  if (modelId === '') {
+    modelId = undefined
   }
-  if (brand === '') {
-    brand = undefined
+  if (brandId === '') {
+    brandId = undefined
   }
   if (location === '') {
     location = undefined
   }
-
-  console.log({ model, brand, location })
-
+  
   const data = await prisma.car.findMany({
     include: {
       brand: true,
@@ -29,10 +27,10 @@ export const GET = async (request: NextRequest) => {
     },
     where: {
       brand: {
-        name: brand,
+        id: brandId,
       },
       model: {
-        name: model,
+        id: modelId,
       },
       location: location,
     },

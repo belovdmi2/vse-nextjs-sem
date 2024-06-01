@@ -11,13 +11,14 @@ interface SelectInputProps
   label: string
   options: Option[]
   register: UseFormRegister<any>
+  fullWidth?: boolean
 }
 
 const SelectInput = (props: SelectInputProps) => {
-  const { label, name, options, register, ...rest } = props
+  const { label, name, options, register, fullWidth, ...rest } = props
 
   return (
-    <div className="flex flex-col w-44">
+    <div className={`flex flex-col ${fullWidth ? 'w-full' : 'w-44'}`}>
       {label ?? <label htmlFor={name}>{label}</label>}
       <select
         {...rest}
