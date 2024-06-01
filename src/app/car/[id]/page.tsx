@@ -1,7 +1,6 @@
 import LabeledValue from '@/components/commons/LabeledValue'
 import Loading from '@/components/commons/Loading'
 import prisma from '@/utils/prisma'
-import Link from 'next/link'
 
 const fetchCarDetail = async (id: string) => {
   const car = await prisma.car.findUnique({

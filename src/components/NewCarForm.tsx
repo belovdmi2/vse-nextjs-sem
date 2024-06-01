@@ -4,7 +4,6 @@ import { Brand, CarModel } from '@prisma/client'
 import BrandAndModelFormFields from './BrandAndModelFormFields'
 import { useForm } from 'react-hook-form'
 import TextInput from './commons/inputs/TextInput'
-import { useState } from 'react'
 
 export type CreateCarFormData = {
   modelId: string

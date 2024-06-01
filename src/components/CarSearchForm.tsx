@@ -1,8 +1,6 @@
 import { Brand, CarModel } from '@prisma/client'
-import SelectInput from './commons/inputs/SelectInput'
 import TextInput from './commons/inputs/TextInput'
 import { useForm } from 'react-hook-form'
-import { useEffect, useMemo, useState } from 'react'
 import BrandAndModelFormFields from './BrandAndModelFormFields'
 
 type CarSearchFormProps = {
