@@ -71,7 +71,7 @@ const NewCarForm = ({
           type="submit"
           className="w-full bg-rose-950/50 font-semibold text-rose-50 transition duration-300 ease-in-ou p-1 rounded-md hover:bg-rose-950/70 hover:backdrop-blur-lg text-center"
         >
-          Search
+          Create
         </button>
       </form>
     </div>
