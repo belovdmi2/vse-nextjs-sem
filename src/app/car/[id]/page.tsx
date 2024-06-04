@@ -19,7 +19,11 @@ const CarDetailPage = async ({ params }: { params: { id: string } }) => {
   const car = await fetchCarDetail(params.id)
 
   if (!car) {
-    return <Loading />
+    return (
+      <div className="pt-8 text-center font-semibold text-3xl">
+        Car not found...
+      </div>
+    )
   }
 
   return (

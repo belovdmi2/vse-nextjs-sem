@@ -10,40 +10,37 @@ const HomePage = () => {
   const [model, setModel] = useState<string>('')
   const [brand, setBrand] = useState<string>('')
   const [location, setLocation] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
 
-  const { data: brands } = useQuery({
+  const { data: brands, isFetching: isBrandsFetching } = useQuery({
     queryKey: ['brands'],
     queryFn: async () => {
       return (await fetch('/api/brands')).json()
     },
+    throwOnError: true,
   })
 
-  const { data: models } = useQuery({
+  const { data: models, isFetching: isModelsFetching } = useQuery({
     queryKey: ['models'],
     queryFn: async () => {
       return (await fetch('/api/car-models')).json()
     },
+    throwOnError: true,
   })
 
-  const { data: cars } = useQuery({
+  const { data: cars, isFetching: isCarsFetching } = useQuery({
     queryKey: ['cars', { location, model, brand }],
     queryFn: async () => {
-      setLoading(true)
-      try {
-        return (
-          await fetch(
-            `/api/cars?location=${location ?? ''}&modelId=${
-              model ?? ''
-            }&brandId=${brand ?? ''}`
-          )
-        ).json()
-      } finally {
-        setLoading(false)
-      }
+      return (
+        await fetch(
+          `/api/cars?location=${location ?? ''}&modelId=${
+            model ?? ''
+          }&brandId=${brand ?? ''}`
+        )
+      ).json()
     },
     placeholderData: keepPreviousData,
     refetchOnMount: 'always',
+    throwOnError: true,
   })
 
   const setFilter = async ({
@@ -56,7 +53,7 @@ const HomePage = () => {
     setBrand(brandId)
   }
 
-  if (!cars || !models || !brands) {
+  if (isCarsFetching || isModelsFetching || isBrandsFetching) {
     return <Loading />
   }
 
@@ -66,7 +63,7 @@ const HomePage = () => {
         models={models?.data}
         brands={brands?.data}
         processDataAfterSubmit={setFilter}
-        disableSubmit={loading}
+        disableSubmit={isModelsFetching || isBrandsFetching || isCarsFetching}
       />
       <div className="flex justify-between p-4">
         <div className="w-44 text-left">Model</div>
@@ -75,7 +72,7 @@ const HomePage = () => {
         <div className="w-40 inline-block">Price</div>
       </div>
       <hr />
-      {loading ? <Loading /> : <CarList cars={cars?.data} />}
+      {isCarsFetching ? <Loading /> : <CarList cars={cars?.data} />}
     </div>
   )
 }
